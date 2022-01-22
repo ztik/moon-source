@@ -1,0 +1,401 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <button onclick="backToTop()" id="topButton" title="Go to top"><span></span></button>
+    <link href="output.css" rel="stylesheet">
+    <script src="https://embed.selly.io"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>Moon Client</title>
+    <style>
+        @media screen and (max-width: 825px) {
+            #hideOnSmallScreen {
+                visibility: hidden;
+                display: none;
+                overflow: hidden;
+            }
+        }
+
+        #hideCompletely {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.3s ease-in-out;
+        }
+
+        /* Scroll to top button hover effect */
+
+        #topButton:hover {
+            background-color: #555;
+        }
+
+        /* Top button style */
+
+        #topButton {
+            display: block;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            font-family: productSans, serif;
+            font-size: 18px;
+            background-color: transparent;
+            opacity: 0;
+            outline: none;
+            color: transparent;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border-radius: 3px;
+            text-align: center;
+            border: 0;
+        }
+
+        /* Arrow for the inside of the top button */
+
+        #topButton span {
+            position: absolute;
+            top: 81.5%;
+            left: 55.5%;
+            content: '';
+            width: 12px;
+            height: 12px;
+            margin: -12px 0 0 -8px;
+            border-left: 1px solid #fff;
+            border-bottom: 1px solid #fff;
+            -webkit-transform: rotate(-225deg);
+            transform: rotate(-225deg);
+            box-sizing: border-box;
+        }
+
+        #displayHide {
+            visibility: hidden;
+            display: none;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-800">
+    <nav class="bg-slate-900 shadow-heavy">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+            <div class="relative flex items-center justify-between h-16">
+                <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" id="mobile-menu-button">
+<span class="sr-only">Open main menu</span>
+<svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+</svg>
+<svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+</svg>
+</button>
+                </div>
+                <div class="flex-1 flex items-center justify-center sm:justify-start">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="index.html"><img class="block lg:hidden h-14 w-auto" src="logo.png" alt=""></a>
+                        <a href="index.html"><img class="hidden lg:block h-14 w-auto" src="logo.png" alt=""></a>
+                    </div>
+                    <div class="hidden sm:block sm:ml-6" id="hideOnSmallScreen">
+                        <div class="flex space-x-4">
+                            <a href="tos.html" class="text-white px-3 py-2 rounded-md text-sm font-semibold" aria-current="page">Terms of services</a>
+                        </div>
+                    </div>
+                    <div class="hidden sm:block sm:ml-2" id="hideOnSmallScreen">
+                        <div class="flex space-x-4">
+                            <a href="privacy.html" class="text-white px-3 py-2 rounded-md text-sm font-semibold" aria-current="page">Privacy policy</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-row pr-2 sm:ml-6 sm:pr-0">
+                    <button type="button" data-selly-product="c7e7fac4" class="hidden sm:block ml-2 bg-indigo-500 rounded-md text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+<span class="flex items-center justify-center">
+<svg xmlns="http://www.w3.org/2000/svg" class="ml-3 mr-3 mt-1 h-6 w-6" viewBox="0 0 20 20" fill="white">
+<path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+</svg>
+<a class="text-white font-semibold px-0 mr-3 py-2 text-semibold" aria-current="page">Purchase</a>
+</span>
+</button>
+                    <button type="button" onclick="redirect('https://discord.com/invite/85Tbytk7Nd')" class="hidden sm:block ml-2 bg-indigo-500 rounded-md text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+<span class="flex items-center justify-center">
+<img class="ml-3" src="discord.svg" width="24">
+<a class="text-white font-semibold px-3 py-2 text-semibold" aria-current="page" target="_blank">Discord</a>
+</span>
+</button>
+                    <button type="button" onclick="redirect('https://scripting.moonclient.xyz')" class="hidden sm:block ml-2 bg-indigo-500 rounded-md text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white flex items-center justify-center">
+<span class="flex items-center justify-center">
+<svg xmlns="http://www.w3.org/2000/svg" class="ml-3 mr-3 mt-1 h-6 w-6" viewBox="0 0 20 20" fill="white">
+<path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+</svg>
+<a class="text-white font-semibold px-0 mr-3 py-2 text-semibold" aria-current="page" target="_blank">Scripting</a>
+</span>
+</button>
+                </div>
+            </div>
+        </div>
+        <div class="sm:hidden flex flex-col mobilenavcontrol" id="hideCompletely">
+            <button type="button" class="ml-2 mr-2 mb-1 bg-indigo-500 rounded-md text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white flex items-center justify-center">
+<svg xmlns="http://www.w3.org/2000/svg" class="ml-3 mr-3 mt-1 h-6 w-6" viewBox="0 0 20 20" fill="white">
+<path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+</svg>
+<a href="#" class="text-white font-semibold px-0 mr-3 py-2 text-semibold" aria-current="page">Buy moon</a>
+</button>
+            <button type="button" class="ml-2 mr-2 mb-1 bg-indigo-500 rounded-md text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white flex items-center justify-center">
+<img class="ml-3" src="discord.svg" width="24">
+<a href="#" class="text-white font-semibold px-3 py-2 text-semibold" aria-current="page">Discord</a>
+</button>
+            <button type="button" class="ml-2 mr-2 mb-1 bg-indigo-500 rounded-md text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white flex items-center justify-center">
+<svg xmlns="http://www.w3.org/2000/svg" class="ml-3 mr-3 mt-1 h-6 w-6" viewBox="0 0 20 20" fill="white">
+<path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+</svg>
+<a href="#" class="text-white font-semibold px-0 mr-3 py-2 text-semibold" aria-current="page">Scripting</a>
+</button>
+        </div>
+    </nav>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center mb-16 mt-16 flex flex-col items-center justify-center">
+                <h2 class="text-base max-w-7xl text-4xl text-blue-500 font-bold">Moon Client</h2>
+                <h2 class="text-base max-w-7xl mt-2 text-4xl text-white font-extrabold" style="text-align: center">A Minecraft 1.8.9 utility modification
+                </h2>
+                <h2 class="text-base mt-6 max-w-7xl text-md text-gray-500 font-medium" style="text-align: center">A client which fits all your needs, both visually and feature wise.<br>Easy usability while staying customizable with a large community.<br>Trusted since 2018</h2>
+                <div class="flex">
+                    <button type="button" onclick="scrollToLearnMore()" class="mt-12 bg-indigo-500 py-2 rounded-md mr-3 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white flex items-center justify-center">
+<svg xmlns="http://www.w3.org/2000/svg" class="ml-3 mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="white">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z" />
+</svg>
+<a class="text-white font-semibold mr-3 text-semibold" aria-current="page">Learn more</a>
+</button>
+                    <button type="button" onclick="scrollToPricing()" class="mt-12 bg-indigo-500 py-2 rounded-md text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white flex items-center justify-center">
+<svg xmlns="http://www.w3.org/2000/svg" class="ml-3 mr-3 h-6 w-6" viewBox="0 0 20 20" fill="white">
+<path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+</svg>
+<a class="text-white font-semibold mr-3 text-semibold" aria-current="page">Pricing</a>
+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="py-12" id="learnMoreSection">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center mb-16">
+                <h2 class="text-base max-w-7xl text-4xl text-blue-500 font-bold" style="text-align: center">Why Moon Client?
+                </h2>
+            </div>
+            <div class="mt-16">
+                <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
+                    <div class="relative shadow-heavy bg-slate-900 p-5 rounded-xl flex justify-center items-center flex-col">
+                        <div class="p-4 rounded-md bg-indigo-500 text-white mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+</svg>
+                        </div>
+                        <p class="lg:text-center text-xl font-medium text-white">Reliable</p>
+                        <dd class="mt-2 lg:text-center text-base text-gray-500">
+                            Moon has always gotten quality updates since 2018, always improving the client to the point where it is at now.
+                        </dd>
+                    </div>
+                    <div class="relative shadow-heavy bg-slate-900 p-5 rounded-xl flex justify-center items-center flex-col">
+                        <div class="p-4 rounded-md bg-indigo-500 text-white mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+</svg>
+                        </div>
+                        <p class="lg:text-center text-xl font-medium text-white">Customizable</p>
+                        <dd class="mt-2 lg:text-center text-base text-gray-500">
+                            Every feature in the client is customizable, visuals, combat modules, everything. You can customize all modules to your needs.
+                        </dd>
+                    </div>
+                    <div class="relative shadow-heavy bg-slate-900 p-5 rounded-xl flex justify-center items-center flex-col">
+                        <div class="p-4 rounded-md bg-indigo-500 text-white mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+</svg>
+                        </div>
+                        <p class="lg:text-center text-xl font-medium text-white">Beautiful</p>
+                        <dd class="mt-2 lg:text-center text-base text-gray-500">
+                            Moon has stunning and modern visuals making the client look like no other. It also has a lot of performance improvements to make sure you have the best and smoothest experience.
+                        </dd>
+                    </div>
+                    <div class="relative shadow-heavy bg-slate-900 p-5 rounded-xl flex justify-center items-center flex-col">
+                        <div class="p-4 rounded-md bg-indigo-500 text-white mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+</svg>
+                        </div>
+                        <p class="lg:text-center text-xl font-medium text-white">Internet Relay Chat</p>
+                        <dd class="mt-2 lg:text-center text-base text-gray-500">
+                            Moon has an Internet Relay Chat which makes it possible that you can identify other Moon Users in-game. You can also chat with them on the fly.
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center mb-16">
+                <h2 class="text-base max-w-7xl text-4xl text-blue-500 font-bold" style="text-align: center">Statistics</h2>
+            </div>
+            <div class="mt-16">
+                <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
+                    <div class="relative shadow-heavy bg-slate-900 p-8 rounded-xl">
+                        <p class="text-left text-xl font-medium text-gray-500">Total users</p>
+                        <div class="loadingTotalUsers mt-4 flex flex-col justify-center items-center lg:text-center">
+                            <svg class="animate-spin -ml-1 mr-3 h-12 w-12 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+</svg>
+                        </div>
+                        <dd class="mt-1 text-left text-4xl text-white font-extrabold" id="textTotalUsers">
+                        </dd>
+                    </div>
+                    <div class="relative shadow-heavy bg-slate-900 p-8 rounded-xl">
+                        <p class="text-left text-xl font-medium text-gray-500">
+                            Logins
+                            <span class="text-xs text-gray-600">last 24 hrs</span>
+                        </p>
+                        <div class="loadingLast24hrs mt-4 flex flex-col justify-center items-center lg:text-center">
+                            <svg class="animate-spin -ml-1 mr-3 h-12 w-12 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+</svg>
+                        </div>
+                        <dd class="mt-1 text-left text-4xl text-white font-extrabold" id="text24hrs">
+                        </dd>
+                    </div>
+                    <div class="relative shadow-heavy bg-slate-900 p-8 rounded-xl">
+                        <p class="text-left text-xl font-medium text-gray-500">Currently online</p>
+                        <dd class="mt-1 text-left text-4xl text-white font-extrabold">
+                            Unavailable
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="py-12" id="pricingSection">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center mb-16">
+                <h2 class="text-base max-w-7xl text-4xl text-blue-500 font-bold" style="text-align: center">Pricing</h2>
+            </div>
+            <div class="mt-16">
+                <dl class="space-y-10 auto-cols-max md:space-y-0 md:grid md:grid-cols-4 md:gap-x-8 md:gap-y-10">
+                    <div class="relative shadow-heavy bg-slate-900 p-8 rounded-xl flex flex-col col-start-2 col-span-2">
+                        <p class="lg:text-left text-5xl font-extrabold text-white">
+                            20€
+                            <span class="text-gray-500 text-xl font-medium">/ lifetime</span>
+                        </p>
+                        <d class="mt-8 lg:text-left text-base text-gray-500">
+                            There are no subscriptions, pay for it once and receive updates for the rest of its lifetime
+                            <span class="text-xs text-gray-500">*</span>.
+                            <br> Isn't that a good deal?
+                        </d>
+                        <d class="mt-8 lg:text-left text-base text-gray-500 flex items-center">
+                            <span class="green">
+<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 48 48" style=" fill:#000000;"><path fill="#43A047" d="M40.6 12.1L17 35.7 7.4 26.1 4.6 29 17 41.3 43.4 14.9z"></path></svg>
+</span>
+                            <span class="text-white sm:ml-2">
+One-time purchase
+</span>
+                        </d>
+                        <d class="mt-4 lg:text-left text-base text-gray-500 flex items-center">
+                            <span class="green">
+<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 48 48" style=" fill:#000000;"><path fill="#43A047" d="M40.6 12.1L17 35.7 7.4 26.1 4.6 29 17 41.3 43.4 14.9z"></path></svg>
+</span>
+                            <span class="text-white sm:ml-2">
+Receive the full client, no compromises
+</span>
+                        </d>
+                        <d class="mt-4 lg:text-left text-base text-gray-500 flex items-center">
+                            <span class="green">
+<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 48 48" style=" fill:#000000;"><path fill="#43A047" d="M40.6 12.1L17 35.7 7.4 26.1 4.6 29 17 41.3 43.4 14.9z"></path></svg>
+</span>
+                            <span class="text-white sm:ml-2">
+Lifetime<span class="text-xs text-gray-500">*</span> updates for free
+                            </span>
+                        </d>
+                        <d class="mt-4 lg:text-left text-base text-gray-500 flex items-center">
+                            <span class="green">
+<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 48 48" style=" fill:#000000;"><path fill="#43A047" d="M40.6 12.1L17 35.7 7.4 26.1 4.6 29 17 41.3 43.4 14.9z"></path></svg>
+</span>
+                            <span class="text-white sm:ml-2">
+Lifetime<span class="text-xs text-gray-500">*</span> customer support
+                            </span>
+                        </d>
+                        <d class="mt-4 lg:text-left text-base text-gray-500 text-xs flex items-center">
+                            * Lifetime stands for the lifetime of the client.
+                        </d>
+                        <d class="lg:text-left text-base text-gray-500 text-sm flex items-center">
+                            Only works on Windows 7-11 x64
+                        </d>
+                        <button type="button" class="mt-8 p-1 rounded-full hover:text-white flex justify-center items-center flex-col focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white bg-indigo-500 text-white font-semibold py-3 rounded text-semibold"
+                            data-selly-product="c7e7fac4">
+<a class="text-2xl text-center" style="text-align: center" aria-current="page">Buy now
+</a>
+<a class="text-gray-400 text-xs text-center" aria-current="page">Credit Card and Crypto
+</a>
+</button>
+                        <button type="button" onclick="redirect('https://discord.gg/UuZQB5DqNY')" class="mt-8 p-1 rounded-full hover:text-white flex justify-center items-center flex-col focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white bg-indigo-500 text-white font-semibold py-3 rounded text-semibold">
+<a target="_blank" class="text-2xl" aria-current="page">Buy over reselling service
+</a>
+<a class="text-gray-400 text-xs" aria-current="page">PayPal and PaySafeCard
+</a>
+</button>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center mb-16">
+                <h2 class="text-base max-w-7xl text-4xl text-blue-500 font-bold">Media</h2>
+            </div>
+            <div class="mt-16">
+                <dl class="space-y-16 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-16">
+                    <div class="relative shadow-heavy bg-slate-900 p-8 rounded-xl">
+                        <div class="relative" style="padding-top: 56.25%;">
+                            <iframe src="https://www.youtube.com/embed/AK2eJfJ1kS4" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="relative shadow-heavy bg-slate-900 p-8 rounded-xl">
+                        <div class="relative" style="padding-top: 56.25%;">
+                            <iframe src="https://www.youtube.com/embed/w-t_7rSB5Os" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="relative shadow-heavy bg-slate-900 p-8 rounded-xl">
+                        <div class="relative" style="padding-top: 56.25%;">
+                            <iframe src="https://www.youtube.com/embed/G7hNlLQ53h8" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <nav class="bg-slate-900 shadow-heavy">
+        <div class="relative flex flex-col items-center justify-center">
+            <div class="mt-8 mb-4">
+                <a href="tos.html" class="text-gray-400 hover:text-white font-bold mr-2 ml-2">Terms of services</a>
+                <a href="privacy.html" class="text-gray-400 hover:text-white font-bold mr-2 ml-2">Privacy policy</a>
+                <a href="https://discord.gg/85Tbytk7Nd" target="_blank" class="text-gray-400 hover:text-white font-bold mr-2 ml-2">Discord</a>
+                <a href="https://scripting.moonclient.xyz" target="_blank" class="text-gray-400 hover:text-white font-bold mr-2 ml-2">Scripting</a>
+            </div>
+            <div class="mt-4 mb-4">
+                <p class="text-gray-400">© 2018-2022 Moon Client, All Rights Reserved</p>
+            </div>
+        </div>
+        <div class="sm:hidden flex flex-col mobilenavcontrol">
+        </div>
+    </nav>
+    <script src="redirect.js"></script>
+    <script src="mobile.js"></script>
+    <script src="back.js"></script>
+    <script src="statistics.js"></script>
+    <script src="scroll.js"></script>
+</body>
+
+</html>
